@@ -1,9 +1,23 @@
+"""
+参数打印工具模块
+用于格式化打印实验的所有配置参数
+"""
+
 def print_args(args):
-    print("\033[1m" + "Basic Config" + "\033[0m")
+    """
+    打印实验参数
+    以格式化的方式打印所有配置参数，便于查看和记录
+    
+    参数:
+        args: 命令行参数对象
+    """
+    # 打印基础配置
+    print("\033[1m" + "Basic Config" + "\033[0m")  # 粗体标题
     print(f'  {"Task Name:":<20}{args.task_name:<20}{"Is Training:":<20}{args.is_training:<20}')
     print(f'  {"Model ID:":<20}{args.model_id:<20}{"Model:":<20}{args.model:<20}')
     print()
 
+    # 打印数据加载器配置
     print("\033[1m" + "Data Loader" + "\033[0m")
     print(f'  {"Data:":<20}{args.data:<20}{"Root Path:":<20}{args.root_path:<20}')
     print(f'  {"Data Path:":<20}{args.data_path:<20}{"Features:":<20}{args.features:<20}')
@@ -11,6 +25,7 @@ def print_args(args):
     print(f'  {"Checkpoints:":<20}{args.checkpoints:<20}')
     print()
 
+    # 打印预测任务特定配置
     if args.task_name in ['long_term_forecast', 'short_term_forecast']:
         print("\033[1m" + "Forecasting Task" + "\033[0m")
         print(f'  {"Seq Len:":<20}{args.seq_len:<20}{"Label Len:":<20}{args.label_len:<20}')
@@ -18,16 +33,19 @@ def print_args(args):
         print(f'  {"Inverse:":<20}{args.inverse:<20}')
         print()
 
+    # 打印插补任务特定配置
     if args.task_name == 'imputation':
         print("\033[1m" + "Imputation Task" + "\033[0m")
         print(f'  {"Mask Rate:":<20}{args.mask_rate:<20}')
         print()
 
+    # 打印异常检测任务特定配置
     if args.task_name == 'anomaly_detection':
         print("\033[1m" + "Anomaly Detection Task" + "\033[0m")
         print(f'  {"Anomaly Ratio:":<20}{args.anomaly_ratio:<20}')
         print()
 
+    # 打印模型参数
     print("\033[1m" + "Model Parameters" + "\033[0m")
     print(f'  {"Top k:":<20}{args.top_k:<20}{"Num Kernels:":<20}{args.num_kernels:<20}')
     print(f'  {"Enc In:":<20}{args.enc_in:<20}{"Dec In:":<20}{args.dec_in:<20}')
@@ -40,6 +58,7 @@ def print_args(args):
     print(f'  {"Output Attention:":<20}{args.output_attention:<20}')
     print()
 
+    # 打印运行参数
     print("\033[1m" + "Run Parameters" + "\033[0m")
     print(f'  {"Num Workers:":<20}{args.num_workers:<20}{"Itr:":<20}{args.itr:<20}')
     print(f'  {"Train Epochs:":<20}{args.train_epochs:<20}{"Batch Size:":<20}{args.batch_size:<20}')
@@ -48,11 +67,13 @@ def print_args(args):
     print(f'  {"Lradj:":<20}{args.lradj:<20}{"Use Amp:":<20}{args.use_amp:<20}')
     print()
 
+    # 打印GPU配置
     print("\033[1m" + "GPU" + "\033[0m")
     print(f'  {"Use GPU:":<20}{args.use_gpu:<20}{"GPU:":<20}{args.gpu:<20}')
     print(f'  {"Use Multi GPU:":<20}{args.use_multi_gpu:<20}{"Devices:":<20}{args.devices:<20}')
     print()
 
+    # 打印去平稳化投影器参数
     print("\033[1m" + "De-stationary Projector Params" + "\033[0m")
     p_hidden_dims_str = ', '.join(map(str, args.p_hidden_dims))
     print(f'  {"P Hidden Dims:":<20}{p_hidden_dims_str:<20}{"P Hidden Layers:":<20}{args.p_hidden_layers:<20}') 
